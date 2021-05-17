@@ -1,10 +1,11 @@
 """pytest tests for library"""
 import sys
 import pytest
-sys.path.append("../flask_app")
-
-#flask app
-from web import application
+import os
+current_dir = os.path.dirname(os.path.realpath(__file__))
+working_dir = os.path.join(current_dir , "..")
+sys.path.append(working_dir)
+from flask_app.web import application
 
 @pytest.fixture
 def client():
