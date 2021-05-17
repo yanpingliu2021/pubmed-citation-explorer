@@ -3,11 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-#
+# local
 .vscode*
 data
 .DS_Store
-flask_app/*/*.DS_Store
+flask_app/*/.DS_Store
 
 # C extensions
 *.so
