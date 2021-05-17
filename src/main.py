@@ -34,7 +34,7 @@ for f in files:
             print(yr_df.shape)
 
 
-
+df.head(5)
 df = df.loc[df['pubdate'] != '1979'].reset_index(drop=True)
 df.shape
 df.head()
