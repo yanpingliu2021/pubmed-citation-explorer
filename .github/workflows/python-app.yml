@@ -40,6 +40,9 @@ jobs:
     - name: Install Dependencies
       run: poetry install
       if: steps.cache.outputs.cache-hit != 'true'
-    - name: Test with pytest
-      run: |
-        make lint test
+
+    - name: Run pylint
+      run: poetry run pylint --load-plugins pylint_flask --disable=R,C flask_app/*.py
+
+    - name: Run pytest
+      run: PYTHONPATH=tests/ poetry run pytest -vv --cov-report term-missing --cov=web test_*.py
