@@ -11,8 +11,9 @@ import spacy
 nlp = spacy.load("en_core_sci_sm")
 import glob
 files = sorted(glob.glob('../data/raw/*.xml.gz'))
-
-for f in files:
+# 322
+# 394
+for f in files[322:]:
     print(f"parse file {f.split('/')[-1]}")
     parsed_articles = pp.parse_medline_xml(f,
                                         year_info_only=True,
@@ -27,13 +28,14 @@ for f in files:
         f_path = f'../data/processed/pubmed_baseline_{yr}.parquet'
         if os.path.exists(f_path):
             tmp_df = pd.read_parquet(f_path)
-            yr_df.append(tmp_df).drop_duplicates().reset_index(drop=True).to_parquet(f_path, index=False)
-            print(yr_df.shape)
+            com_df = yr_df.append(tmp_df).drop_duplicates().reset_index(drop=True)
+            com_df.to_parquet(f_path, index=False)
+            # print(com_df.shape)
         else:
             yr_df.to_parquet(f_path, index=False)
-            print(yr_df.shape)
 
-
+import pyarrow.parquet as pq
+parquet_file = pq.ParquetFile(f_path)
 df.head(5)
 df = df.loc[df['pubdate'] != '1979'].reset_index(drop=True)
 df.shape
