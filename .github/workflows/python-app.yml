@@ -10,8 +10,8 @@ name: Python application
 
 env:
   EB_PACKAGE_S3_BUCKET_NAME : "msds498-captsone-s3"
-  EB_APPLICATION_NAME       : "msds498-capstone-flask-app-2"
-  EB_ENVIRONMENT_NAME       : "Msds498capstoneflaskapp2-env"
+  EB_APPLICATION_NAME       : "msds498capstoneflask"
+  EB_ENVIRONMENT_NAME       : "Msds498capstoneflask-env"
   DEPLOY_PACKAGE_NAME       : "flask-app-${{ github.sha }}.zip"
   AWS_REGION_NAME           : "us-east-1"
 
