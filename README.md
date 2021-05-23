@@ -7,6 +7,8 @@ https://github.com/titipata/pubmed_parser/wiki
 https://github.com/titipata/pubmed_parser/wiki/Download-and-preprocess-MEDLINE-dataset
 https://github.com/titipata/pubmed_parser/wiki/Download-and-preprocess-Pubmed-Open-Access-dataset
 https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/
-
 https://github.com/Skumarr53/Used-Car-Price-Prediction
 https://www.youtube.com/watch?v=LP04X795Pt4
+
+deploy to aws elastic beanstalk
+https://realpython.com/deploying-a-django-app-and-postgresql-to-aws-elastic-beanstalk/
