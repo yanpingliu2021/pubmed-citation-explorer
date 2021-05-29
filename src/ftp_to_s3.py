@@ -11,14 +11,26 @@ from nltk.corpus import stopwords
 import psycopg2
 from psycopg2 import Error, connect
 from io import StringIO
+import os
 
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'database_name': os.environ['RDS_DB_NAME'],
+            'user': os.environ['RDS_USERNAME'],
+            'password': os.environ['RDS_PASSWORD'],
+            'host': os.environ['RDS_HOSTNAME'],
+            'port': os.environ['RDS_PORT'],
+            'table_name': os.environ['RDS_TB_NAME']
+        }
+    }
 
-database_name = 'baselinedb'
-table_name = 'pubmed_raw'
-user = "postgres"
-password = "numsds498"
-host = "pubmed-baseline.cxantjlnay5d.us-east-1.rds.amazonaws.com"
-port = "5432"
+database_name = DATABASES['default']['database_name']
+table_name = DATABASES['default']['table_name']
+user = DATABASES['default']['user']
+password = DATABASES['default']['password']
+host = DATABASES['default']['host']
+port = DATABASES['default']['port']
 
 ## create database and table
 #need to change security group in RDS to open port 5432
@@ -73,10 +85,12 @@ try:
     connection.commit()
     print("Table created successfully in PostgreSQL ")
 
-    # cursor.execute("drop table pubmed_raw")
+    # cursor.execute(f"drop table {table_name}")
     # connection.commit()
     # cursor.execute("""SELECT table_name FROM information_schema.tables
     #     WHERE table_schema = 'public'""")
+    # cursor.fetchall()
+    # cursor.execute(f"""SELECT count('*') FROM {table_name}""")
     # cursor.fetchall()
 
 except (Exception, Error) as error:
