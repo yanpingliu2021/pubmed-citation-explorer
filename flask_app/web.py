@@ -65,7 +65,6 @@ def server_error(e):
 def index():
 
     return render_template('index.html',
-                           imgSrc='static/images/keywords_2020.jpeg',
                            le_categories_Encdict = le_categories_Encdict)
 
 

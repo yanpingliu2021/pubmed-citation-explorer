@@ -10,7 +10,7 @@ data
 */.DS_Store
 */*/.DS_Store
 flask_app/static/images/*.jpeg
-!flask_app/static/images/wordcloud.jpeg
+!flask_app/static/images/keywords_2011.jpeg
 # C extensions
 *.so
 
