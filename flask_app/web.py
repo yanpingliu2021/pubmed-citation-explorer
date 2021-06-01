@@ -28,13 +28,11 @@ if 'RDS_HOSTNAME' in os.environ:
             'user': os.environ['RDS_USERNAME'],
             'password': os.environ['RDS_PASSWORD'],
             'host': os.environ['RDS_HOSTNAME'],
-            'port': os.environ['RDS_PORT'],
-            'table_name': os.environ['RDS_TB_NAME']
+            'port': os.environ['RDS_PORT']
         }
     }
 
 database_name = DATABASES['default']['database_name']
-table_name = DATABASES['default']['table_name']
 user = DATABASES['default']['user']
 password = DATABASES['default']['password']
 host = DATABASES['default']['host']
