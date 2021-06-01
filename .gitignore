@@ -9,7 +9,8 @@ data
 .DS_Store
 */.DS_Store
 */*/.DS_Store
-*/*/*.jpeg
+flask_app/static/images/*.jpeg
+!flask_app/static/images/wordcloud.jpeg
 # C extensions
 *.so
 
