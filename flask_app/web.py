@@ -75,23 +75,23 @@ def background_process():
         Category = request.args.get('Category')
         Year = request.args.get('Year', type=int)
         filename = f'static/images/{Category}_{Year}.jpeg'
+        if not os.path.exists(filename):
+            freq_df = get_data_from_rds(Category, Year)
+            # freq_df = get_data_from_rds()
+            tuples = [tuple(x) for x in freq_df.values]
+            stopwords = set(STOPWORDS)
+
+            wordcloud = WordCloud(stopwords=stopwords,
+                                width=1600,
+                                height=800)\
+                        .generate_from_frequencies(dict(tuples))
+
+            wordcloud.to_image().save(filename)
     else:
         data = request.get_json()
         Category = data['Category']
         Year = data['Year']
         filename = f'static/images/{Category}_{Year}.jpeg'
-
-    freq_df = get_data_from_rds(Category, Year)
-    # freq_df = get_data_from_rds()
-    tuples = [tuple(x) for x in freq_df.values]
-    stopwords = set(STOPWORDS)
-
-    wordcloud = WordCloud(stopwords=stopwords,
-                        width=1600,
-                        height=800)\
-                .generate_from_frequencies(dict(tuples))
-
-    wordcloud.to_image().save(filename)
 
     return jsonify({'image_file':filename})
 
