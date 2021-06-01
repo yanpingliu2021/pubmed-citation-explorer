@@ -14,12 +14,12 @@ env:
   EB_ENVIRONMENT_NAME       : "Msds498capstoneflask-env"
   DEPLOY_PACKAGE_NAME       : "flask-app-${{ github.sha }}.zip"
   AWS_REGION_NAME           : "us-east-1"
-  RDS_HOSTNAME: secrets.RDS_HOSTNAME
-  RDS_USERNAME: secrets.RDS_USERNAME
-  RDS_DB_NAME: secrets.RDS_DB_NAME
-  RDS_PASSWORD: secrets.RDS_PASSWORD
-  RDS_PORT: secrets.RDS_PORT
-  RDS_TB_NAME: secrets.RDS_TB_NAME
+  RDS_HOSTNAME: ${{ secrets.RDS_HOSTNAME }}
+  RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+  RDS_DB_NAME: ${{ secrets.RDS_DB_NAME }}
+  RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+  RDS_PORT: ${{ secrets.RDS_PORT }}
+  RDS_TB_NAME: ${{ secrets.RDS_TB_NAME }}
 
 on:
   push:
