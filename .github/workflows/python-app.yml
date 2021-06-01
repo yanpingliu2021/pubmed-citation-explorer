@@ -60,10 +60,10 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
 
     - name: Run pylint
-      run: poetry run pylint --load-plugins pylint_flask --disable=R,C flask_app/*.py
+      run: poetry run pylint --load-plugins pylint_flask --disable=R,C application.py
 
     - name: Run pytest
-      run: PYTHONPATH=".." poetry run pytest -vv --cov-report term-missing --cov=flask_app.web tests/test_*.py
+      run: PYTHONPATH=".." poetry run pytest -vv --cov-report term-missing --cov=application tests/test_*.py
 
     - name: Print nice message on completion of CI Pipeline
       run : echo "CI Pipeline part finished successfully"
