@@ -19,7 +19,6 @@ le_categories_Encdict = {'Article Keywords': 'keywords',
                          }
 
 
-
 #load database configs
 # for how to set up environment variables in elasticbeanstalk,
 # please refer to https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html
