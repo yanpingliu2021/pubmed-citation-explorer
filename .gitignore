@@ -9,7 +9,7 @@ data
 .DS_Store
 */.DS_Store
 */*/.DS_Store
-flask_app/static/images/*
+*/*/*.jpeg
 # C extensions
 *.so
 
