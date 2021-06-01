@@ -1,3 +1,8 @@
+"""
+download pubmed-baseline citation xml files from FTP to local
+ftp site: 'ftp.ncbi.nlm.nih.gov'
+"""
+
 from ftplib import FTP
 import os
 ftp = FTP('ftp.ncbi.nlm.nih.gov')

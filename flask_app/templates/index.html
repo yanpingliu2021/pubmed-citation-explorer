@@ -1,37 +1,18 @@
 <!DOCTYPE html>
 
-    <head>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Medline/Pubmed Explorer</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <title>PubMed Word Cloud</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
         <style>
-
-        h3, .h3 {
-            font-size: x-large;
-            font-family: monospace;
-            color: blue;
-            font-weight: bold;
-        }
 
         label {
             display: inline-block;
-            margin-bottom: 0px;
             font-weight: bold;
-            margin-top: 10px;
-        }
-        span {
-            margin-bottom: 10px;
-        }
-
-        .slidecontainer {
-            width: 90%;
-            margin-bottom: 0px;
         }
 
         .slider {
@@ -48,6 +29,17 @@
 
         .slider:hover {
             opacity: 1;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 0px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        span {
+            margin-bottom: 10px;
+            width: 100px;
         }
 
         .slider::-webkit-slider-thumb {
@@ -69,51 +61,47 @@
         }
 
         select {
-            width: 250px;
-            font-family: cursive;
+            width: 150px;
+            font-family: Helvetica;
         }
         </style>
     </head>
     <body>
-        <div class="container">
-            <table style="background-color: rgb(255, 255, 255);"  align="center">
-                <tr>
-                    <td width="500px" height=50px>
-                        <h1 style="text-align: center;"><font color = 'blue' style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; letter-spacing: 0.01em; font-size: 30px;">PubMed/Medline Citation Explorer</font></h1>
-                    </td>
-                </tr>
-            </table>
+        <div class="container", width='1200px'>
+            <div>
+                <h3 style="text-align: center;">Visualize PubMed Citations Using Word Cloud</h3>
+            </div>
         </div>
-        <table cellpadding='5' align="center">
-            <tr>
-                <td colspan="3" ><H3 align="center">Visualize Biomedicine Article Citations Using WordCloud V3!</H3></td>
-            </tr>
-            <tr>
-                <td width="800px">
-                    <div class="dropdownlist">
-                        <label for="category">Choose a Category: <span><select id="category"></select></span></label>
-                    </div>
 
-                </td>
+        <div class="container", width='1200px'>
+            <div class="dropdownlist", align = 'center'>
+                <label for="category">Choose a Category to Visualize:
+                    <span><select id="category"></select></span>
+                </label>
+            </div>
+        </div>
+        <br>
 
-                <td width="800px">
-                    <div class="slidecontainer">
-                        <label> Year: <span id="Year"></span></label>
-                        <input type="range" min="1975" max="1978" value="1975" class="slider" id="year_range" step="1">
-                    </div>
-
-                </td>
-            </tr>
-        </table>
         <div class="container">
             <table style="background-color: rgb(252, 252, 253);"  align="center">
                 <tr>
-                    <td width="1000px" align="center" height=400px>
-                        <img src='static/images/keywords_1978.png' id="wordcloudimage" style='padding:1px; border:1px solid #021a40; width: 100%; height: 100%'>
+                    <td width="1200px" align="center" height=600px>
+                        <img src='static/images/keywords_2020.jpeg' id="wordcloudimage" style='border:0;text-decoration:none; outline:none;width: 100%; height: 100%'>
                     </td>
                 </tr>
             </table>
         </div>
+
+        <table cellpadding='5' align="center">
+            <tr>
+                <td width="600px">
+                    <div class="slidecontainer">
+                        <label> Year: <span id="Year"></span></label>
+                        <input type="range" min="2011" max="2020" value="1975" class="slider" id="year_range" step="1">
+                    </div>
+                </td>
+            </tr>
+        </table>
     </body>
     <script>
         // schema for adding dict to dropdown values
@@ -131,18 +119,6 @@
         slider3.change(function() {
             $("#Year").html(slider3.val());
         })
-
-        // $("#year_range").on("change", function(){
-        //     var image_file = "static/images/"+$('#category option:selected').html()+'s_'+$("#Year").html()
-        //     $.ajax({
-        //         medthod: 'POST',
-        //         url:'/',
-        //         data: JSON.stringify({image: image_file}),
-        //         success: function(data){
-        //             $("#wordcloudimage").attr('src', data);
-        //         }
-        //     });
-        // });
 
         var logger = '';
 

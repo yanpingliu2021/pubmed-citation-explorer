@@ -9,10 +9,7 @@ env:
 	which pylint
 install:
 	pip install --upgrade pip &&\
-		pip install git+git://github.com/titipata/pubmed_parser.git &&\
-		python -m spacy download en_core_web_sm &&\
-		pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.4.0/en_core_sci_sm-0.4.0.tar.gz
-
+		pip install git+git://github.com/titipata/pubmed_parser.git
 lint:
 	pylint --load-plugins pylint_flask --disable=R,C flask_app/*.py
 
