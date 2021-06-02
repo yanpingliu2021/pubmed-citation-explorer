@@ -6,81 +6,103 @@
 Explore Medline Biomedical Journal Article Topics Using Word Cloud
 
 A simple Flask Web App to visualize the Biomedical Journal Article contents (Title, Keywords, Abstract, Chemical Studied) by year with the intention to see the trend of the research topics over the last ten years in United States.
+</br>
 
 ## Data Source
 
 The Data used is the [MEDLINE](<https://www.nlm.nih.gov/medline/medline_overview.html>) database, the National Library of Medicine’s (NLM) premier bibliographic database that contains more than 27 million references to journal articles in life sciences with a concentration on biomedicine. The data are hosted in [PubMed](<https://pubmed.ncbi.nlm.nih.gov/>) in XML formats and are free to download via FTP through link: <https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/>
 
 The data contains articles back to 1960s across the world, but only the articles from United States and published during the last ten years were visualized.
+</br>
 
 ## Web Interface Screenshot
 
-![alt text](https://github.com/yanpingliu2021/pubmed-citation-explorer/blob/master/app-interface.png?raw=true)
+![alt text](https://github.com/yanpingliu2021/pubmed-citation-explorer/blob/master/app-interface.PNG?raw=true)
+</br>
+
+## Tool Landscape
+
+1. Testing Framework
+   * pytest
+2. App Deployment
+   * AWS Elastic Beanstalk
+3. Editor
+   * VS Code
+4. Web Framework
+   * Flask
+5. CI/CD
+   * Github Actions
+6. Database
+   * AWS RDS PostgreSQL
+7. Storage
+   * AWS S3
+</br>
 
 ## How to build from scratch
 
-To deploy this Flask app on Google Cloud Platform, you can follow these steps:
+To deploy this Flask app on AWS Elastic Beanstalk Platform, you can follow these steps:
 
 ### Set up project
 
-Run git clone [git@github.com:yanpingliu2021/pubmed-citation-explorer.git](https://github.com/yanpingliu2021/pubmed-citation-explorer.git) in your desired directory
-Install [peotry](https://python-poetry.org/docs/#installation)  npm install -i to install the dependencies
-Run npm start to initiate the server listening at <http://localhost:8080/>
-Launch Google Cloud Platform, create a new project. Change your current project to it and activate Cloud Shell.
-Git clone this repository to your GCP local and cd into it.
+Run ```git clone https://github.com/yanpingliu2021/pubmed-citation-explorer.git``` in your desired directory </br>
+Run ```make setup install``` to set up virtual environment</br>
+Install [peotry](https://python-poetry.org/docs/#installation) and Run ```poetry install``` to install the dependencies</br>
 
-Run this app locally
-Create a virtual environment and activate it. (To deactivate it, run deactivate).
+### Set up AWS Services
 
-make set-up
-source ~/.covid_venv/bin/activate
-Install the required packages.
+Go to [AWS console](https://console.aws.amazon.com/) </br>
+Set up a user in [AWS IAM page](https://console.aws.amazon.com/iam), record Access Key and Secret Key, and assign the following permissions to the user:  </br>
 
-make install
-Run this app, the flask app will be running on <http://127.0.0.1:8080/>.
+* AmazonRDSFullAccess
+* AmazonEC2FullAccess
+* AmazonS3FullAccess
+* AdministratorAccess-AWSElasticBeanstalk
 
-python3 main.py
-You can test it from the frontend website or send a POST request to the running app through a script.
+Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) tool, run ```aws configure``` to config access key, secret key and region </br>
+Go to [AWS RDS page](https://console.aws.amazon.com/rds) to set up a PostgreSQL database</br>
+Go to [AWS Elastic Beanstalk Page](https://console.aws.amazon.com/elasticbeanstalk) to set up an python application and create an environment for the application</br>
+Go to [AWS S3](https://s3.console.aws.amazon.com/s3) and create a S3 bucket to store code base
 
-bash predict-local.sh
-Deploy this app on GCP
-(optional) Verfiy the current project is working. Switch your project if it's not what you want.
+### Run the application in Local Development
 
-gcloud projects describe $GOOGLE_CLOUD_PROJECT
-gcloud config set project $GOOGLE_CLOUD_PROJECT
-Create app engine in GCP.
+To run the application in local, first you will need to set up the following environment variables in local PC or MAC
+</br>
+</br>
+Property name|Description|Property value
+-------------|-----------|--------------
+RDS_HOSTNAME|The hostname of the DB instance|On the Connectivity & security tab on the Amazon RDS console: Endpoint.
+RDS_PORT|The port on which the DB instance accepts connections.|On the Connectivity & security tab on the Amazon RDS console: Port.
+RDS_DB_NAME|The database name|this can be arbitrary, we will create the database using python
+RDS_USERNAME|The username that you configured for your database.|On the Configuration tab on the Amazon RDS console: Master username.
+RDS_PASSWORD|The password that you configured for your database.|Not available for reference in the Amazon RDS console.
+RDS_TB_NAME|The table name to store the data|This can be arbitrary, we will create it using python
 
-gcloud app create
-When it asks you to choose a region, select one(in my case is 14 us-central). Type "yes" when it asks you to continue.
-Deploy this app on cloud, the app will be running on the provided public url.
+</br>Then run the ```download.py```, ```upload.py```, and ```preprocess.py``` python file under the ```src``` folder to download the data and upload them to AWS RDS PostgreSQL database. It may take one day to load the data as the files are pretty large
 
-gcloud app deploy
-You can test it from the frontend website or send a POST request to the running app through a script. Remember to change the website address in predict.sh.
+Finally, run ```make start-api``` to launch the App
+</br>
 
-bash predict.sh
-Load Test with locust
-Run following command, the locust server will be running on <http://0.0.0.0:8089/>.
+### Deploy the app to AWS Elastic Beanstalk
 
-locust
-Go to the webpage, fill out the form and try to test it.
+To achieve continuous deployment to AWS Elastic Beanstalk using github actions,
+first create the following [secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) in your github repo
 
-Done!
+* RDS_HOSTNAME
+* RDS_USERNAME
+* RDS_DB_NAME
+* RDS_PASSWORD
+* RDS_PORT
+* RDS_TB_NAME
+* MY_AWS_ACCESS_KEY
+* MY_AWS_SECRET_KEY
 
-## Helper
+Update the value for following environment variables in ```python-app.yml``` file under ```.github/workflows/```
 
-Community fitness functions: <https://cdlib.readthedocs.io/en/latest/reference/evaluation.html></br>
-Doctor performance metrics: <https://www.cms.gov/medicare/quality-initiatives-patient-assessment-instruments/compare-dac>
+* EB_PACKAGE_S3_BUCKET_NAME
+* EB_APPLICATION_NAME
+* EB_ENVIRONMENT_NAME
+* AWS_REGION_NAME
 
-## Reference
+Following this [AWS document](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html) to config Elastic Beanstalk so that it can connect to the PostgreSQL database created.
 
-<http://wayback.archive-it.org/org-350/20180312141554/https://www.nlm.nih.gov/pubs/factsheets/medline.html>
-<https://en.wikipedia.org/wiki/MEDLINE>
-<https://en.wikipedia.org/wiki/PubMed>
-<https://github.com/titipata/pubmed_parser/wiki>
-<https://github.com/titipata/pubmed_parser/wiki/Download-and-preprocess-MEDLINE-dataset>
-<https://github.com/titipata/pubmed_parser/wiki/Download-and-preprocess-Pubmed-Open-Access-dataset>
-<https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/>
-<https://www.youtube.com/watch?v=LP04X795Pt4>
-
-deploy to aws elastic beanstalk
-<https://realpython.com/deploying-a-django-app-and-postgresql-to-aws-elastic-beanstalk/>
+Push changes to the github repo and github actions will automaically deploy the APP to ElasticBeanstalk

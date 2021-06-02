@@ -5,7 +5,6 @@ upload files to s3 and load it to AWS RDS PostgreSQL database
 # https://alexcodes.medium.com/upload-csv-files-to-postgresql-aws-rds-using-pythons-psycopg2-613992fcd7b
 
 """
-import boto3
 import glob
 # import nltk
 # nltk.download('stopwords')
@@ -20,7 +19,7 @@ import os
 from utils import load_config, copy_from_stringio
 
 # load database configurations
-S3_BUCKET_NAME = 'pubmed-baseline-xml'
+# S3_BUCKET_NAME = 'pubmed-baseline-xml'
 database_name, table_name, user, password, host, port = load_config()
 
 ## create database and table
@@ -126,17 +125,18 @@ def clean_chemical(doc):
     return tokens
 
 
-# upload data to s3
-files = sorted(glob.glob('../data/raw/*.xml.gz'), reverse=True)[:100]
-for local_file_path in files:
-    filename = local_file_path.split('/')[-1]
-    print(f"upload file {local_file_path}")
-    s3_connection = boto3.client("s3")
-    try:
-        s3_connection.upload_file(local_file_path, S3_BUCKET_NAME, filename)
-        print("Upload Successful")
-    except FileNotFoundError:
-        print("The file was not found")
+# # upload data to s3
+# import boto3
+# files = sorted(glob.glob('../data/raw/*.xml.gz'), reverse=True)[:100]
+# for local_file_path in files:
+#     filename = local_file_path.split('/')[-1]
+#     print(f"upload file {local_file_path}")
+#     s3_connection = boto3.client("s3")
+#     try:
+#         s3_connection.upload_file(local_file_path, S3_BUCKET_NAME, filename)
+#         print("Upload Successful")
+#     except FileNotFoundError:
+#         print("The file was not found")
 
 
 #u pload the last 100 xml files to rds
