@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pubmed"
 version = "0.1.0"
-description = "msds data engineering capstone project spring 2021: pubmed"
+description = "msds data engineering capstone individual project spring 2021: pubmed"
 authors = ["Yanping Liu"]
 
 [tool.poetry.dependencies]
