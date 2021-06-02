@@ -37,7 +37,6 @@ The data contain articles back to 1960s across the world, but only the articles 
    * AWS RDS PostgreSQL
 7. Storage
    * AWS S3
-</br>
 
 ## How to build from scratch
 
