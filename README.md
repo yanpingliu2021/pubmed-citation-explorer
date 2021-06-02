@@ -1,5 +1,5 @@
 
-![Python application](https://github.com/yanpingliu2021/pubmed-citation-explorer/actions/workflows/python-app.yml/badge.svg)][link](<https://github.com/yanpingliu2021/pubmed-citation-explorer/actions/workflows/python-app.yml>)
+![Python application](https://github.com/yanpingliu2021/pubmed-citation-explorer/actions/workflows/python-app.yml/badge.svg)[link](<https://github.com/yanpingliu2021/pubmed-citation-explorer/actions/workflows/python-app.yml>)
 
 # NU MSDS498 Capstone Individual Project
 
