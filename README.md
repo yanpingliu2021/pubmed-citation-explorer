@@ -58,7 +58,7 @@ To deploy this Flask app on AWS Elastic Beanstalk Platform, you can follow these
    * AmazonS3FullAccess
    * AdministratorAccess-AWSElasticBeanstalk
 
-3. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) tool, run ```aws configure``` to config access key, secret key and region </br>
+3. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) tool on your local development, run ```aws configure``` to config access key, secret key and region </br>
 4. Go to [AWS RDS page](https://console.aws.amazon.com/rds) to set up a PostgreSQL database</br>
 5. Go to [AWS Elastic Beanstalk Page](https://console.aws.amazon.com/elasticbeanstalk) to set up an python application and create an environment for the application</br>
 6. Go to [AWS S3](https://s3.console.aws.amazon.com/s3) and create a S3 bucket to store code base
@@ -66,7 +66,6 @@ To deploy this Flask app on AWS Elastic Beanstalk Platform, you can follow these
 ### Run the application in Local Development
 
 1. To run the application in local, first you will need to set up the following environment variables in local PC or MAC
-</br>
 </br>
 
 Property name|Description|Property value
@@ -83,8 +82,6 @@ RDS_TB_NAME|The table name to store the data|This can be arbitrary, we will crea
 2. Then run the ```download.py```, ```upload.py```, and ```preprocess.py``` python file under the ```src``` folder to download the data and upload them to AWS RDS PostgreSQL database. It may take one day to load the data as the files are pretty large
 
 3. Finally, run ```make start-api``` to launch the App
-
-</br>
 
 ### Deploy the app to AWS Elastic Beanstalk
 
@@ -110,3 +107,7 @@ first create the following [secrets](https://docs.github.com/en/actions/referenc
 3. Following this [AWS document](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html) to config Elastic Beanstalk so that it can connect to the PostgreSQL database created.
 
 4. Push the code to the github repo and github actions will automaically deploy the APP to ElasticBeanstalk
+
+5. Navigate to ElasticBeanstalk environment in AWS Console to access the App
+
+Thanks for reading
