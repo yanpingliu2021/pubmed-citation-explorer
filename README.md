@@ -6,6 +6,7 @@
 Explore Medline Biomedical Journal Article Topics Using Word Cloud
 
 A simple Flask Web App to visualize the Biomedical Journal Article contents (Title, Keywords, Abstract, Chemical Studied) by year with the intention to see the trend of the research topics over the last ten years in United States.
+App Link: <http://pubmed-wordcloud.us-east-1.elasticbeanstalk.com/>
 </br>
 
 ## Data Source
