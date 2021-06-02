@@ -12,7 +12,7 @@ A simple Flask Web App to visualize the Biomedical Journal Article contents (Tit
 
 The Data used is the [MEDLINE](<https://www.nlm.nih.gov/medline/medline_overview.html>) database, the National Library of Medicine’s (NLM) premier bibliographic database that contains more than 27 million references to journal articles in life sciences with a concentration on biomedicine. The data are hosted in [PubMed](<https://pubmed.ncbi.nlm.nih.gov/>) in XML formats and are free to download via FTP through link: <https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/>
 
-The data contains articles back to 1960s across the world, but only the articles from United States and published during the last ten years were visualized.
+The data contain articles back to 1960s across the world, but only the articles from United States and published during the last ten years were visualized.
 </br>
 
 ## Web Interface Screenshot
@@ -44,30 +44,31 @@ To deploy this Flask app on AWS Elastic Beanstalk Platform, you can follow these
 
 ### Set up project
 
-Run ```git clone https://github.com/yanpingliu2021/pubmed-citation-explorer.git``` in your desired directory </br>
-Run ```make setup install``` to set up virtual environment</br>
-Install [peotry](https://python-poetry.org/docs/#installation) and Run ```poetry install``` to install the dependencies</br>
+1. Run ```git clone https://github.com/yanpingliu2021/pubmed-citation-explorer.git``` in your desired directory </br>
+2. Run ```make setup install``` to set up python virtual environment</br>
+3. Install [peotry](https://python-poetry.org/docs/#installation) and run ```poetry install``` to install the dependencies</br>
 
 ### Set up AWS Services
 
-Go to [AWS console](https://console.aws.amazon.com/) </br>
-Set up a user in [AWS IAM page](https://console.aws.amazon.com/iam), record Access Key and Secret Key, and assign the following permissions to the user:  </br>
+1. Go to [AWS console](https://console.aws.amazon.com/) </br>
+2. Set up a user in [AWS IAM page](https://console.aws.amazon.com/iam), record Access Key and Secret Key, and assign the following permissions to the user:  </br>
 
-* AmazonRDSFullAccess
-* AmazonEC2FullAccess
-* AmazonS3FullAccess
-* AdministratorAccess-AWSElasticBeanstalk
+   * AmazonRDSFullAccess
+   * AmazonEC2FullAccess
+   * AmazonS3FullAccess
+   * AdministratorAccess-AWSElasticBeanstalk
 
-Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) tool, run ```aws configure``` to config access key, secret key and region </br>
-Go to [AWS RDS page](https://console.aws.amazon.com/rds) to set up a PostgreSQL database</br>
-Go to [AWS Elastic Beanstalk Page](https://console.aws.amazon.com/elasticbeanstalk) to set up an python application and create an environment for the application</br>
-Go to [AWS S3](https://s3.console.aws.amazon.com/s3) and create a S3 bucket to store code base
+3. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) tool, run ```aws configure``` to config access key, secret key and region </br>
+4. Go to [AWS RDS page](https://console.aws.amazon.com/rds) to set up a PostgreSQL database</br>
+5. Go to [AWS Elastic Beanstalk Page](https://console.aws.amazon.com/elasticbeanstalk) to set up an python application and create an environment for the application</br>
+6. Go to [AWS S3](https://s3.console.aws.amazon.com/s3) and create a S3 bucket to store code base
 
 ### Run the application in Local Development
 
-To run the application in local, first you will need to set up the following environment variables in local PC or MAC
+1. To run the application in local, first you will need to set up the following environment variables in local PC or MAC
 </br>
 </br>
+
 Property name|Description|Property value
 -------------|-----------|--------------
 RDS_HOSTNAME|The hostname of the DB instance|On the Connectivity & security tab on the Amazon RDS console: Endpoint.
@@ -77,32 +78,35 @@ RDS_USERNAME|The username that you configured for your database.|On the Configur
 RDS_PASSWORD|The password that you configured for your database.|Not available for reference in the Amazon RDS console.
 RDS_TB_NAME|The table name to store the data|This can be arbitrary, we will create it using python
 
-</br>Then run the ```download.py```, ```upload.py```, and ```preprocess.py``` python file under the ```src``` folder to download the data and upload them to AWS RDS PostgreSQL database. It may take one day to load the data as the files are pretty large
+</br>
 
-Finally, run ```make start-api``` to launch the App
+2. Then run the ```download.py```, ```upload.py```, and ```preprocess.py``` python file under the ```src``` folder to download the data and upload them to AWS RDS PostgreSQL database. It may take one day to load the data as the files are pretty large
+
+3. Finally, run ```make start-api``` to launch the App
+
 </br>
 
 ### Deploy the app to AWS Elastic Beanstalk
 
-To achieve continuous deployment to AWS Elastic Beanstalk using github actions,
+1. To achieve continuous deployment to AWS Elastic Beanstalk using github actions,
 first create the following [secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) in your github repo
 
-* RDS_HOSTNAME
-* RDS_USERNAME
-* RDS_DB_NAME
-* RDS_PASSWORD
-* RDS_PORT
-* RDS_TB_NAME
-* MY_AWS_ACCESS_KEY
-* MY_AWS_SECRET_KEY
+   * RDS_HOSTNAME
+   * RDS_USERNAME
+   * RDS_DB_NAME
+   * RDS_PASSWORD
+   * RDS_PORT
+   * RDS_TB_NAME
+   * MY_AWS_ACCESS_KEY
+   * MY_AWS_SECRET_KEY
 
-Update the value for following environment variables in ```python-app.yml``` file under ```.github/workflows/```
+2. Update the value for following environment variables in ```python-app.yml``` file under ```.github/workflows/```
 
-* EB_PACKAGE_S3_BUCKET_NAME
-* EB_APPLICATION_NAME
-* EB_ENVIRONMENT_NAME
-* AWS_REGION_NAME
+   * EB_PACKAGE_S3_BUCKET_NAME
+   * EB_APPLICATION_NAME
+   * EB_ENVIRONMENT_NAME
+   * AWS_REGION_NAME
 
-Following this [AWS document](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html) to config Elastic Beanstalk so that it can connect to the PostgreSQL database created.
+3. Following this [AWS document](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html) to config Elastic Beanstalk so that it can connect to the PostgreSQL database created.
 
-Push changes to the github repo and github actions will automaically deploy the APP to ElasticBeanstalk
+4. Push the code to the github repo and github actions will automaically deploy the APP to ElasticBeanstalk
