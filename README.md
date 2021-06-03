@@ -40,7 +40,7 @@ The data contain articles back to 1960s across the world, but only the articles 
 
 ## CI/CD Workflow
 
-![alt text](https://github.com/yanpingliu2021/pubmed-citation-explorer/blob/master/Workflow.PNG?raw=true)
+![alt text](https://github.com/yanpingliu2021/pubmed-citation-explorer/blob/master/Workflow.png?raw=true)
 </br>
 
 ## How to build from scratch
