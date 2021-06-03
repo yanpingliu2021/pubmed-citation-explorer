@@ -78,21 +78,21 @@ Property name|Description|Property value
 -------------|-----------|--------------
 RDS_HOSTNAME|The hostname of the DB instance|On the Connectivity & security tab on the Amazon RDS console: Endpoint.
 RDS_PORT|The port on which the DB instance accepts connections.|On the Connectivity & security tab on the Amazon RDS console: Port.
-RDS_DB_NAME|The database name|this can be arbitrary, we will create the database using python
+RDS_DB_NAME|The database name|This can be arbitrary, we will create the database using python
 RDS_USERNAME|The username that you configured for your database.|On the Configuration tab on the Amazon RDS console: Master username.
 RDS_PASSWORD|The password that you configured for your database.|Not available for reference in the Amazon RDS console.
-RDS_TB_NAME|The table name to store the data|This can be arbitrary, we will create it using python
+RDS_TB_NAME|The table name to store the data|This can be arbitrary, we will create the table using python
 
 </br>
 
-2. Then run the ```download.py```, ```upload.py```, and ```preprocess.py``` python file under the ```src``` folder to download the data and upload them to AWS RDS PostgreSQL database. It may take one day to load the data as the files are pretty large
+1. Then run the ```download.py```, ```upload.py```, and ```preprocess.py``` python file under the ```src``` folder to download the data and upload them to AWS RDS PostgreSQL database. It may take couple of hours for this process as the files are pretty large
 
-3. Finally, run ```make start-api``` to launch the App
+2. Finally, run ```make start-api``` to launch the App
 
 ### Deploy the app to AWS Elastic Beanstalk
 
 1. To achieve continuous deployment to AWS Elastic Beanstalk using github actions,
-first create the following [secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) in your github repo
+first create the following [secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) in your github repo. The values are the same as what have been set up above
 
    * RDS_HOSTNAME
    * RDS_USERNAME
@@ -103,18 +103,18 @@ first create the following [secrets](https://docs.github.com/en/actions/referenc
    * MY_AWS_ACCESS_KEY
    * MY_AWS_SECRET_KEY
 
-2. Update the value for following environment variables in ```python-app.yml``` file under ```.github/workflows/```
+2. Update the value for following environment variables in ```python-app.yml``` file under ```.github/workflows/``` folder
 
    * EB_PACKAGE_S3_BUCKET_NAME
    * EB_APPLICATION_NAME
    * EB_ENVIRONMENT_NAME
    * AWS_REGION_NAME
 
-3. Following this [AWS document](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html) to config Elastic Beanstalk so that it can connect to the PostgreSQL database created.
+3. Following this [AWS document](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/rds-external-defaultvpc.html) to config Elastic Beanstalk so that it can connect to the RDS PostgreSQL database created.
 
 4. Push the code to the github repo and github actions will automaically deploy the APP to ElasticBeanstalk
 
-5. Navigate to ElasticBeanstalk environment in AWS Console to access the App
+5. Navigate to ElasticBeanstalk environment in AWS Console to find the App url and access the App
 
 ## Limitations and Future Work
 
