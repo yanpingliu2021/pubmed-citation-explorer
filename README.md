@@ -118,8 +118,8 @@ first create the following [secrets](https://docs.github.com/en/actions/referenc
 
 ## Limitations and Future Work
 
-File size is large
-use spark
-set up Lamda
+1. It is hard to find trending topics just using word cloud, adding other NLP components such as topic modeling could help to enhance the application
+2. The file size is pretty large (33GB), it took quite a long time to download the XML files, parse them and load into database, some of the big data technologies such as Spark, Hadoop can be included to reduce the processing time
+3. Serverless technologies such as AWS Lamda can also be included to further streamline the workflow
 
 Thanks for reading
