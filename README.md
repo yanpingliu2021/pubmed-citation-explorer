@@ -38,6 +38,11 @@ The data contain articles back to 1960s across the world, but only the articles 
 7. Storage
    * AWS S3
 
+## CI/CD Workflow
+
+![alt text](https://github.com/yanpingliu2021/pubmed-citation-explorer/blob/master/Workflow.PNG?raw=true)
+</br>
+
 ## How to build from scratch
 
 To deploy this Flask app on AWS Elastic Beanstalk Platform, you can follow these steps:
@@ -109,5 +114,11 @@ first create the following [secrets](https://docs.github.com/en/actions/referenc
 4. Push the code to the github repo and github actions will automaically deploy the APP to ElasticBeanstalk
 
 5. Navigate to ElasticBeanstalk environment in AWS Console to access the App
+
+## Limitations and Future Work
+
+File size is large
+use spark
+set up Lamda
 
 Thanks for reading
