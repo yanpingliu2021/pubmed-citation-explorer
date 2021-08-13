@@ -18,7 +18,8 @@ test:
 
 start-api:
 	#sets PYTHONPATH to directory above, would do differently in production
-	PYTHONPATH=".." python application.py
+	#PYTHONPATH=".." python application.py
+	python application.py
 
 all: install lint test
 
