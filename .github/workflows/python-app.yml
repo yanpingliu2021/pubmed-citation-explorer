@@ -5,6 +5,7 @@
 # reference:
 # https://github.com/adv-it/github-actions-part2-cicd-to-aws/blob/master/.github/workflows/main.yml
 # https://github.com/marketplace/actions/beanstalk-deploy
+# updated in 8/13/2021
 
 name: Python application
 
